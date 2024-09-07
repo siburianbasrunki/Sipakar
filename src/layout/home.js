@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import HomeImg from "../images/home.webp";
 import { Navbar } from "../components/navbar";
+import { useAuth } from "../hooks/useAuth";
 export const Home = () => {
+  const { isAuthenticated } = useAuth();
   return (
     <>
       <Navbar />
@@ -21,11 +23,15 @@ export const Home = () => {
               SIPAKAR hadir untuk memberikan solusi terbaik dalam memantau
               kehadiran karyawan Anda dengan efisien dan akurat.
             </p>
-            <Link to="/login">
-              <button className="btn bg-blue-500 hover:bg-blue-600">
-                login
-              </button>
-            </Link>
+            {isAuthenticated() ? (
+              <Link to="/absen">
+                <button className="btn btn-primary">Absen</button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <button className="btn btn-primary">Login</button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
